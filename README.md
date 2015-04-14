@@ -2,6 +2,7 @@ TimeSync CLI
 ============
 
 A CLI for the OSL's TimeSync Application.
+Feel free to scribble all over this preliminary design document.
 
 
 When you
