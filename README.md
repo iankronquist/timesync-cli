@@ -21,13 +21,13 @@ Usage:
 ------
 
 * `timesync checkin` 
-	- `-d`: duration, an integer, required.
-	- `-u`: user, optional.
-	- `-p`: project slug, required.
-	- `-a`: activity, required.
-	- `-n`: notes, optional.
-	- `-i`: issue URI, optional.
-	- `-t`: date worked, optional, defaults to current date.
+	- `--duration`: duration, an integer, required.
+	- `--user`: user, optional.
+	- `--project`: project slug, required.
+	- `--activity`: activity, required.
+	- `--notes`: notes, optional.
+	- `--issue`: issue URI, optional.
+	- `--date`: date worked, optional, defaults to current date.
 
 If no flags are passed your favorite editor will be opened with the previous
 check in's information already filled in.
