@@ -1,28 +1,43 @@
 package timesync
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
 )
 
-func CheckIn(config map[string]string, issue_uri string, activity string,
-			project string, notes string, duration int) error {
+type CheckIn struct {
+	Duration *int
+	User *string
+	Project *string
+	Activity *string
+	Notes *string
+	Issue *string
+	Date *string
+}
+
+func PostCheckIn(config map[string]string, checkInDate CheckIn) error {
 	domain := config["domain"]
 	port := config["port"]
-	user := config["user"]
-	issue_uri = url.QueryEscape(issue_uri)
-	activity = url.QueryEscape(activity)
-	project = url.QueryEscape(project)
-	notes = url.QueryEscape(notes)
-	query := fmt.Sprintf("activity=%s&issue_uri=%s&project=%s&notes=%s&user=%s&duration=%d", activity, issue_uri, project, notes, user, duration)
-	resp, err := http.Get(fmt.Sprintf("http://%s:%s/time/add?%s", domain, port, query))
+
+	url := fmt.Sprintf("http://%s:%s/time/add", domain, port)
+	checkinAsJson, err := json.Marshal(checkInDate)
 	if err != nil {
 		panic(err)
-		//return err
-	} else {
+	}
+	body := bytes.NewReader(checkinAsJson)
+
+	resp, err := http.Post(url, "text/json", body)
+
+	if err != nil {
+		panic(err)
+		return err
+	} else if resp.StatusCode != 200 {
+		fmt.Print("Uh oh!! The request wasn't OK.");
 		fmt.Print(resp.Body);
-		fmt.Print("success!");
+		return nil
+	} else {
 		return nil
 	}
 }
