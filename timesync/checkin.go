@@ -3,6 +3,7 @@ package timesync
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 )
@@ -40,4 +41,36 @@ func PostCheckIn(config map[string]string, checkInDate CheckIn) error {
 	} else {
 		return nil
 	}
+}
+
+func ParseCheckIn(config Config, arguments []string) error {
+	flagSet :=flag.FlagSet{}
+
+	checkInData := CheckIn {
+		Duration: flagSet.Int("duration", 0,
+			"The time spent on the project in minutes, required"),
+		User: flagSet.String("user", "", "The username, required"),
+		Project: flagSet.String("project", "", "The project, required"),
+		Activity: flagSet.String("activity", "", "The activity, required"),
+		Notes: flagSet.String("notes", "", "The notes"),
+		Issue: flagSet.String("issue", "", "A URI for the issue"),
+		Date: flagSet.String("date", "", "The date work was done"),
+	}
+
+	flagSet.Parse(arguments)
+
+	// TODO: validate date fields
+
+	if *checkInData.Duration == 0 || *checkInData.Project == "" ||
+			*checkInData.Activity == "" {
+		fmt.Println("Duration, project, and activity are all required parameters");
+		return errors.New("Required parameter missing")
+	}
+
+	err := PostCheckIn(config, checkInData)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return nil
 }
