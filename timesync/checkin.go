@@ -11,12 +11,12 @@ import (
 
 type CheckIn struct {
 	Duration *int
-	User *string
-	Project *string
+	User     *string
+	Project  *string
 	Activity *string
-	Notes *string
-	Issue *string
-	Date *string
+	Notes    *string
+	Issue    *string
+	Date     *string
 }
 
 func PostCheckIn(config Config, checkInDate CheckIn) error {
@@ -36,8 +36,8 @@ func PostCheckIn(config Config, checkInDate CheckIn) error {
 		panic(err)
 		return err
 	} else if resp.StatusCode != 200 {
-		fmt.Print("Uh oh!! The request wasn't OK.");
-		fmt.Print(resp.Body);
+		fmt.Print("Uh oh!! The request wasn't OK.")
+		fmt.Print(resp.Body)
 		return nil
 	} else {
 		return nil
@@ -45,17 +45,17 @@ func PostCheckIn(config Config, checkInDate CheckIn) error {
 }
 
 func ParseCheckIn(config Config, arguments []string) error {
-	flagSet :=flag.FlagSet{}
+	flagSet := flag.FlagSet{}
 
-	checkInData := CheckIn {
+	checkInData := CheckIn{
 		Duration: flagSet.Int("duration", 0,
 			"The time spent on the project in minutes, required"),
-		User: flagSet.String("user", "", "The username, required"),
-		Project: flagSet.String("project", "", "The project, required"),
+		User:     flagSet.String("user", "", "The username, required"),
+		Project:  flagSet.String("project", "", "The project, required"),
 		Activity: flagSet.String("activity", "", "The activity, required"),
-		Notes: flagSet.String("notes", "", "The notes"),
-		Issue: flagSet.String("issue", "", "A URI for the issue"),
-		Date: flagSet.String("date", "", "The date work was done"),
+		Notes:    flagSet.String("notes", "", "The notes"),
+		Issue:    flagSet.String("issue", "", "A URI for the issue"),
+		Date:     flagSet.String("date", "", "The date work was done"),
 	}
 
 	flagSet.Parse(arguments)
@@ -63,8 +63,8 @@ func ParseCheckIn(config Config, arguments []string) error {
 	// TODO: validate date fields
 
 	if *checkInData.Duration == 0 || *checkInData.Project == "" ||
-			*checkInData.Activity == "" {
-		fmt.Println("Duration, project, and activity are all required parameters");
+		*checkInData.Activity == "" {
+		fmt.Println("Duration, project, and activity are all required parameters")
 		return errors.New("Required parameter missing")
 	}
 

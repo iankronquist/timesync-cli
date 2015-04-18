@@ -1,10 +1,10 @@
 package main
 
 import (
+	"./timesync"
 	"flag"
 	"fmt"
 	"os"
-	"./timesync"
 )
 
 // See man 3 sysexits, BSD
@@ -17,13 +17,13 @@ func main() {
 
 	if len(arguments) == 0 {
 		fmt.Println("helptext")
-		os.Exit(EX_USAGE);
+		os.Exit(EX_USAGE)
 	}
 	verb := arguments[0]
-	config, err:= timesync.GetConfig()
+	config, err := timesync.GetConfig()
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(EX_USAGE);
+		os.Exit(EX_USAGE)
 	}
 	if verb == "checkin" {
 		timesync.ParseCheckIn(config, arguments[1:])
@@ -35,9 +35,7 @@ func main() {
 		fmt.Println("Generate a report...")
 	} else {
 		fmt.Println("help text")
-		os.Exit(EX_USAGE);
+		os.Exit(EX_USAGE)
 	}
 
 }
-
-
