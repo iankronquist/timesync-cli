@@ -26,9 +26,13 @@ func main() {
 		os.Exit(EX_USAGE);
 	}
 	if verb == "checkin" {
-		parseCheckIn(config, arguments[1:])
-	} else if verb == "somethingelse" {
-
+		timesync.ParseCheckIn(config, arguments[1:])
+	} else if verb == "delete" {
+		fmt.Println("delete an object...")
+	} else if verb == "update" {
+		fmt.Println("update an object...")
+	} else if verb == "report" {
+		fmt.Println("Generate a report...")
 	} else {
 		fmt.Println("help text")
 		os.Exit(EX_USAGE);
