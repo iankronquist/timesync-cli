@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"net/http"
 )
@@ -18,11 +19,11 @@ type CheckIn struct {
 	Date *string
 }
 
-func PostCheckIn(config map[string]string, checkInDate CheckIn) error {
-	domain := config["domain"]
-	port := config["port"]
+func PostCheckIn(config Config, checkInDate CheckIn) error {
+	domain := config.Domain
+	port := config.Port
 
-	url := fmt.Sprintf("http://%s:%s/time/add", domain, port)
+	url := fmt.Sprintf("http://%s:%d/time/add", domain, port)
 	checkinAsJson, err := json.Marshal(checkInDate)
 	if err != nil {
 		panic(err)
