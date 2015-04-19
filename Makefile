@@ -1,5 +1,3 @@
-GOPATH=${PWD}/gopath
-
 all: build
 
 setup:
@@ -17,6 +15,10 @@ test:
 
 install-deps:
 	echo install dependencies...
+
+cover:
+	go test -coverprofile=c.out ./timesync
+	go tool cover -html=c.out
 
 clean:
 	rm -rf build
