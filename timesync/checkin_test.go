@@ -1,11 +1,11 @@
 package timesync
 
 import (
+	"bytes"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"bytes"
 )
 
 func Test_PostCheckIn_200(t *testing.T) {
@@ -22,7 +22,7 @@ func Test_PostCheckIn_200(t *testing.T) {
 			if err != nil {
 				t.Error("Error reading body")
 			}
-			expectedBodyData := []byte("{\"duration\":12,\"user\":\"iankronquist\",\"project\":\"ww\",\"activity\":\"review\",\"notes\":\"reviewed PR #14\",\"issue_uri\":\"github.com/osu-cass/whats_fresh_api/pulls/14\",\"date\":\"2015-04-18\"}");
+			expectedBodyData := []byte("{\"duration\":12,\"user\":\"iankronquist\",\"project\":\"ww\",\"activity\":\"review\",\"notes\":\"reviewed PR #14\",\"issue_uri\":\"github.com/osu-cass/whats_fresh_api/pulls/14\",\"date\":\"2015-04-18\"}")
 
 			if bytes.Compare(bodyData, expectedBodyData) != 0 {
 				t.Error("Request body did not match. Got: ", string(bodyData),
@@ -31,17 +31,17 @@ func Test_PostCheckIn_200(t *testing.T) {
 		}))
 	defer ts.Close()
 
-	checkInData := CheckIn {
+	checkInData := CheckIn{
 		Duration: 12,
-		User:  "iankronquist",
+		User:     "iankronquist",
 		Activity: "review",
-		Notes: "reviewed PR #14",
-		Project: "ww",
-		Issue: "github.com/osu-cass/whats_fresh_api/pulls/14",
-		Date: "2015-04-18",
+		Notes:    "reviewed PR #14",
+		Project:  "ww",
+		Issue:    "github.com/osu-cass/whats_fresh_api/pulls/14",
+		Date:     "2015-04-18",
 	}
 
-	config := Config {
+	config := Config{
 		URL: ts.URL + "/checkin/add",
 	}
 
@@ -52,23 +52,22 @@ func Test_PostCheckIn_200(t *testing.T) {
 	}
 }
 
-
 func Test_PostCheckIn_404(t *testing.T) {
 
 	ts := httptest.NewServer(http.NotFoundHandler())
 	defer ts.Close()
 
-	checkInData := CheckIn {
+	checkInData := CheckIn{
 		Duration: 12,
-		User:  "iankronquist",
+		User:     "iankronquist",
 		Activity: "review",
-		Notes: "reviewed PR #14",
-		Project: "ww",
-		Issue: "github.com/osu-cass/whats_fresh_api/pulls/14",
-		Date: "2015-04-18",
+		Notes:    "reviewed PR #14",
+		Project:  "ww",
+		Issue:    "github.com/osu-cass/whats_fresh_api/pulls/14",
+		Date:     "2015-04-18",
 	}
 
-	config := Config {
+	config := Config{
 		URL: ts.URL,
 	}
 

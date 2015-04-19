@@ -10,7 +10,7 @@ import (
 )
 
 type CheckIn struct {
-	Duration int `json:"duration"`
+	Duration int    `json:"duration"`
 	User     string `json:"user"`
 	Project  string `json:"project"`
 	Activity string `json:"activity"`
@@ -33,7 +33,7 @@ func PostCheckIn(config Config, checkInData CheckIn) error {
 	if err != nil {
 		return err
 	} else if resp.StatusCode != http.StatusOK {
-		return errors.New("Request failed");
+		return errors.New("Request failed")
 	} else {
 		return nil
 	}
