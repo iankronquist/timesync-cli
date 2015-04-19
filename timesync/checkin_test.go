@@ -31,22 +31,14 @@ func Test_PostCheckIn_200(t *testing.T) {
 		}))
 	defer ts.Close()
 
-	duration := 12
-	user := "iankronquist"
-	activity := "review"
-	notes := "reviewed PR #14"
-	project := "ww"
-	issue := "github.com/osu-cass/whats_fresh_api/pulls/14"
-	date := "2015-04-18"
-
 	checkInData := CheckIn {
-		Duration: &duration,
-		User: &user,
-		Activity: &activity,
-		Notes: &notes,
-		Project: &project,
-		Issue: &issue,
-		Date: &date,
+		Duration: 12,
+		User:  "iankronquist",
+		Activity: "review",
+		Notes: "reviewed PR #14",
+		Project: "ww",
+		Issue: "github.com/osu-cass/whats_fresh_api/pulls/14",
+		Date: "2015-04-18",
 	}
 
 	config := Config {
