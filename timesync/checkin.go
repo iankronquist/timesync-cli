@@ -32,9 +32,7 @@ func PostCheckIn(config Config, checkInData CheckIn) error {
 
 	if err != nil {
 		return err
-	} else if resp.StatusCode != 200 {
-		fmt.Print("Uh oh!! The request wasn't OK.")
-		fmt.Print(resp.Body)
+	} else if resp.StatusCode != http.StatusOK {
 		return errors.New("Request failed");
 	} else {
 		return nil
