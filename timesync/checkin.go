@@ -10,13 +10,13 @@ import (
 )
 
 type CheckIn struct {
-	Duration *int
-	User     *string
-	Project  *string
-	Activity *string
-	Notes    *string
-	Issue    *string
-	Date     *string
+	Duration *int `json:"duration"`
+	User     *string `json:"user"`
+	Project  *string `json:"project"`
+	Activity *string `json:"activity"`
+	Notes    *string `json:"notes"`
+	Issue    *string `json:"issue_uri"`
+	Date     *string `json:"date"`
 }
 
 func PostCheckIn(config Config, checkInData CheckIn) error {
