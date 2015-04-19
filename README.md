@@ -4,31 +4,48 @@ TimeSync CLI
 A CLI for the OSL's TimeSync Application.
 Feel free to scribble all over this preliminary design document.
 
+SYNOPSIS
+`timesync command`
 
-When you
+COMMANDS
+--------
 
-Configuration:
---------------
-The program can take configuration from environment variables or from a
-configuration file in `~/.timesync.json` or `./.timesync.json`.
-Flags can also be passed. The config file specifies things which will almost
-always be the same, like the domain where the app is running (i.e. `localhost`
-or `timesync.osuosl.org`). Flags specify variables which will change
-frequently, like the activity of the duration. If no flags are passed, then it
-will pop open an editor, `git commit` style, with info filled in.
-
-Usage:
-------
-
-* `timesync checkin` 
+* `checkin`: Sends a message to the server to check the current user in.
 	- `--duration`: duration, an integer, required.
-	- `--user`: user, optional.
 	- `--project`: project slug, required.
 	- `--activity`: activity, required.
-	- `--notes`: notes, optional.
+	- `--user`: user, optional, defaults to current user's name.
+	- `--date`: date worked, optional, defaults to current date on server side.
 	- `--issue`: issue URI, optional.
-	- `--date`: date worked, optional, defaults to current date.
+	- `--notes`: notes, optional.
 
 If no flags are passed your favorite editor will be opened with the previous
-check in's information already filled in.
+check in's information already filled in (not yet implemented).
 
+EXAMPLES:
+---------
+
+This is probably the most basic and common use case:
+```sh
+$ timesync checkin -duration=12 -project=ww -activity=docs
+```
+Assuming my username is `iankronquist`, It will send the following data to the
+server:
+```json
+{
+  "duration": 12,
+  "user": "iankronquist",
+  "project": "ww",
+  "activity": "docs",
+}
+```
+
+CONFIGURATION:
+--------------
+
+The program can take configuration from environment variables or from a
+configuration file in `~/.timesync.json` or `./.timesync.json`.
+Command line flags can also be passed. The config file specifies things which
+will almost always be the same, like the domain where the app is running (i.e.
+`localhost` or `timesync.osuosl.org`). Flags specify variables which will
+change frequently, like the activity of the duration.
