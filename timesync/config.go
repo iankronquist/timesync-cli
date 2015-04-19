@@ -7,8 +7,7 @@ import (
 )
 
 type Config struct {
-	Domain string
-	Port   int
+	URL    string
 	User   string
 	Editor string
 }
@@ -36,8 +35,7 @@ func GetConfig() (Config, error) {
 	} else { // We assume this is a development environment
 		config.User = ""
 		config.Editor = ""
-		config.Domain = "localhost"
-		config.Port = 8000
+		config.URL = "http://localhost:8000"
 	}
 
 	if path != "" {

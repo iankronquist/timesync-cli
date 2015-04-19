@@ -19,12 +19,10 @@ type CheckIn struct {
 	Date     *string
 }
 
-func PostCheckIn(config Config, checkInDate CheckIn) error {
-	domain := config.Domain
-	port := config.Port
+func PostCheckIn(config Config, checkInData CheckIn) error {
+	url := config.URL
 
-	url := fmt.Sprintf("http://%s:%d/time/add", domain, port)
-	checkinAsJson, err := json.Marshal(checkInDate)
+	checkinAsJson, err := json.Marshal(checkInData)
 	if err != nil {
 		panic(err)
 	}
