@@ -4,15 +4,20 @@ all: build
 
 setup:
 	mkdir -p ${GOPATH}/src/${ORGPATH}
+	mkdir -p build
 
 build: setup
-	go build main.go
+	go build timesync-cli.go
 
 run:
-	go run main.go
+	go run timesync-cli.go
 
 test:
-	go test
+	go test ./timesync
 
 install-deps:
 	echo install dependencies...
+
+clean:
+	rm -rf build
+	rm -f timesync-cli
