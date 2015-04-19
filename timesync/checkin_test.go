@@ -51,3 +51,29 @@ func Test_PostCheckIn_200(t *testing.T) {
 		t.Error("Error in PostCheckIn", err)
 	}
 }
+
+
+func Test_PostCheckIn_404(t *testing.T) {
+
+	ts := httptest.NewServer(http.NotFoundHandler())
+	defer ts.Close()
+
+	checkInData := CheckIn {
+		Duration: 12,
+		User:  "iankronquist",
+		Activity: "review",
+		Notes: "reviewed PR #14",
+		Project: "ww",
+		Issue: "github.com/osu-cass/whats_fresh_api/pulls/14",
+		Date: "2015-04-18",
+	}
+
+	config := Config {
+		URL: ts.URL,
+	}
+
+	err := PostCheckIn(config, checkInData)
+	if err.Error() != "Request failed" {
+		t.Error("PostCheckIn didn't error", err)
+	}
+}
