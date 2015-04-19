@@ -1,3 +1,4 @@
 gopath/*
 .*.swp
 timesync-cli
+coverage.out
