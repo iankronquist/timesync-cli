@@ -33,12 +33,11 @@ func PostCheckIn(config Config, checkInDate CheckIn) error {
 	resp, err := http.Post(url, "text/json", body)
 
 	if err != nil {
-		panic(err)
 		return err
 	} else if resp.StatusCode != 200 {
 		fmt.Print("Uh oh!! The request wasn't OK.")
 		fmt.Print(resp.Body)
-		return nil
+		return errors.New("Request failed");
 	} else {
 		return nil
 	}
